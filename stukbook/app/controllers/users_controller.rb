@@ -15,7 +15,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @activities = PublicActivity::Activity.where(owner_id: @user.id)
+    @post = Post.new
+    @posts = @user.posts.order('created_at DESC')
+    @activities = PublicActivity::Activity.where(owner_id: @user.id).order('created_at DESC')
   end
 
   private
@@ -24,5 +26,3 @@ class UsersController < ApplicationController
     @user = User.find_by(username: params[:id])
   end
 end
-
-

@@ -1,25 +1,18 @@
 Stukbook::Application.routes.draw do
- 
-
-  #get 'users/show'
-
+  devise_for :users, controllers: {registrations: 'registrations'}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  devise_for :users, controllers: 
-     {
-        
-        registrations: 'users/registrations'
-      }
+
   # You can have the root of your site routed with "root"
   root 'pages#home'
 
-   resources :users, only: [:show, :index]
-   resources :friendships, only: [:create, :destroy, :accept] do 
+  resources :users, only: [:show, :index]
+  resources :friendships, only: [:create, :destroy, :accept] do 
     member do 
       put :accept
     end
   end
-
+  resources :posts, only: [:create, :edit, :update, :destroy]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
